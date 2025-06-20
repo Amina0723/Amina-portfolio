@@ -21,8 +21,8 @@ const tabCards = {
     {
       img: projectImg10,
       title: "Restaurant Management System",
-      desc: "A full-stack MERN application with smart table booking, interactive menu, cart system, user authentication, feedback system, and user dashboard. Designed with a modern UI and real-time MongoDB integration.",
-      video: "../public/final1.mp4",
+      desc: "A full-stack MERN application with smart table booking, interactive menu, cart system, user authentication, feedback system, and user dashboard.",
+      video: "/videos/final1.mp4",
     },
     {
       type: "video",
@@ -30,13 +30,13 @@ const tabCards = {
       img: projectImg1,
       title: "Tic Tac Toe Game",
       desc: "A classic two-player game built with React. Features responsive design, turn-based logic, and win/draw detection.",
-      video: "../public/tictak.mp4",
+      video: "/videos/tictak.mp4",
     },
     {
       img: projectImg6,
       title: "Website Design",
       desc: "Crafted a modern, responsive website design focusing on user experience, clean layouts, and intuitive navigation using Figma and React.",
-      video: "../public/website.mp4",
+      video: "/videos/website.mp4",
     },
   ],
   Tab2: [
@@ -44,59 +44,59 @@ const tabCards = {
       img: projectImg4,
       title: "Web Design UI/UX",
       desc: "A modern responsive website design created with Figma and built in React.",
-      video: "../public/web.mp4",
+      video: "/videos/web.mp4",
     },
     {
       img: projectImg1,
       title: "Rock, Paper, Scissors Game",
       desc: "A simple interactive game built with JavaScript and React. Users play against the computer with real-time score tracking and animations.",
-      video: "../public/rock.mp4",
+      video: "/videos/rock.mp4",
     },
     {
       img: projectImg2,
       title: "Portfolio Website",
-      desc: "A responsive React-based portfolio showcasing my projects, skills, and contact info. Designed with clean UI, smooth navigation, and media-rich content.",
-      video: "../public/portfolio.mp4",
+      desc: "A responsive React-based portfolio showcasing my projects, skills, and contact info.",
+      video: "/videos/portfolio.mp4",
     },
   ],
   Tab3: [
     {
       img: projectImg7,
       title: "Website Design",
-      desc: "Developed and designed a responsive website design with seamless UI/UX using Figma for mockups and React for frontend implementation.",
-      video: "../public/website1.mp4",
+      desc: "Developed and designed a responsive website with seamless UI/UX using Figma and React.",
+      video: "/videos/website1.mp4",
     },
     {
       img: projectImg8,
       title: "Professional CV Design",
-      desc: "Designed a professional CV layout with clean typography, structured sections, and elegant visuals, suitable for both print and digital formats.",
-      video: "../public/cv.mp4",
+      desc: "Designed a professional CV layout with clean typography, structured sections, and elegant visuals.",
+      video: "/videos/cv.mp4",
     },
     {
       img: projectImg12,
       title: "MERN User Control Panel",
       desc: "An interactive user form to add, update, and delete users with a connected MongoDB backend.",
-      video: "../public/form.mp4",
+      video: "/videos/form.mp4",
     },
   ],
   Tab4: [
     {
       img: projectImg11,
       title: "Full-Stack User Form",
-      desc: "A full-stack MERN application that allows adding, editing, viewing, and deleting user data with real-time updates and clean UI.",
-      video: "../public/form1.mp4",
+      desc: "A full-stack MERN app allowing add/edit/delete user data with real-time updates.",
+      video: "/videos/form1.mp4",
     },
     {
       img: projectImg5,
       title: "Brand Page Design Project",
-      desc: "Developed a clean and professional logo along with brand guidelines for consistent visual communication.",
-      video: "../public/logo.mp4",
+      desc: "Developed a clean brand logo with consistent design elements.",
+      video: "/videos/logo.mp4",
     },
     {
       img: projectImg9,
-      title: "News & Artical Page Design",
-      desc: "Built an intuitive and clean pricing table for a SaaS product landing page.",
-      video: "../public/vid.mp4",
+      title: "News & Article Page",
+      desc: "Built a clean, intuitive article/news layout with SaaS-style design.",
+      video: "/videos/vid.mp4",
     },
   ],
 };
@@ -124,41 +124,15 @@ const videoVariants = {
 export default function ProjectsGallery() {
   const [activeTab, setActiveTab] = useState("Tab1");
   const [showProjects, setShowProjects] = useState(false);
-  const [renderKey, setRenderKey] = useState(0);
   const [revealedCardIndex, setRevealedCardIndex] = useState(null);
   const [videoSrc, setVideoSrc] = useState(null);
 
   const sectionRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShowProjects(false);
-          setActiveTab("Tab1");
-          setRevealedCardIndex(null);
-          setRenderKey(Date.now());
-        }
-      },
-      { threshold: 0.4 }
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-
-    return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
-  }, []);
-
-  const headingText = showProjects
-    ? "Explore Some of My Projects"
-    : "A Glimpse of My Work";
-
   const resetToVideoSection = () => {
     setShowProjects(false);
     setActiveTab("Tab1");
     setRevealedCardIndex(null);
-    setRenderKey(Date.now());
   };
 
   const handleCardClick = (index) => {
@@ -182,7 +156,7 @@ export default function ProjectsGallery() {
             className="text-4xl font-bold mb-12 text-cyan-400 text-center transition-all duration-500 cursor-pointer"
             onClick={resetToVideoSection}
           >
-            {headingText}
+            {showProjects ? "Explore Some of My Projects" : "A Glimpse of My Work"}
           </h2>
 
           {!showProjects && (
@@ -193,7 +167,6 @@ export default function ProjectsGallery() {
                 animate="visible"
                 exit="hidden"
                 variants={videoVariants}
-                key={`video-${renderKey}`}
               >
                 <video
                   src="https://ik.imagekit.io/diefvstl4/WhatsApp%20Video%202025-05-25%20at%2019.39.27_bb005fc8.mp4?updatedAt=1748186039489"
@@ -218,14 +191,22 @@ export default function ProjectsGallery() {
 
           {showProjects && (
             <>
-              <div className="flex justify-center mb-8 space-x-4 mt-6 flex-wrap gap-2">
+              <div className="flex justify-center mb-4">
+                <button
+                  onClick={resetToVideoSection}
+                  className="flex items-center gap-2 mb-10 bg-red-600 hover:bg-red-700 text-white py-2 px-6 rounded-full transition text-md font-medium shadow-[0_0_10px_3px_rgba(239,68,68,0.6)] hover:shadow-[0_0_16px_5px_rgba(239,68,68,0.9)]"
+                >
+                  <XCircle className="w-5 h-5" /> Close Projects
+                </button>
+              </div>
+
+              <div className="flex justify-center mb-8 space-x-4 mt-2 flex-wrap gap-2">
                 {tabs.map((tab) => (
                   <button
                     key={tab}
                     onClick={() => {
                       setActiveTab(tab);
                       setRevealedCardIndex(null);
-                      setRenderKey(Date.now());
                     }}
                     className={`px-6 py-2 rounded-full font-medium transition text-cyan-400 ${
                       activeTab === tab
@@ -240,7 +221,7 @@ export default function ProjectsGallery() {
 
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={renderKey + activeTab}
+                  key={activeTab}
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
@@ -308,9 +289,8 @@ export default function ProjectsGallery() {
                         <p className="text-cyan-300 flex-grow">{data.desc}</p>
                         <div className="mt-4">
                           <button
-                            onClick={() => data.video && setVideoSrc(`/videos/${data.video}`)}
+                            onClick={() => data.video && setVideoSrc(data.video)}
                             className="w-full bg-cyan-600 hover:bg-cyan-700 text-black py-2 px-4 rounded transition"
-                            style={{ boxShadow: "none" }}
                           >
                             View Demo
                           </button>
@@ -324,6 +304,7 @@ export default function ProjectsGallery() {
           )}
         </div>
       </div>
+
       {videoSrc && (
         <div className="fixed inset-0 bg-black bg-opacity-80 z-[9999] flex items-center justify-center">
           <div className="relative w-full max-w-3xl p-4">

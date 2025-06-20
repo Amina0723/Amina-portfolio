@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add this to your global CSS file (tailwindcss compatible)  */
+
+/* Add this to your global CSS file (tailwindcss compatible) */ 
+
+/* Sparkle effect */
+.sparkle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0bcce6, #19c7e6);
+  pointer-events: none;
+  animation: sparkle-fade 0.8s ease-out forwards;
+  z-index: 9999;
+  opacity: 0;
+}
+
+@keyframes sparkle-fade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Optional: Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+
+  
+  
+   
+    
